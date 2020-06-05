@@ -1,0 +1,4 @@
+create 'bucks', 'cf'
+put 'bucks', 'row1', 'cf:a', 'value1'
+put 'bucks', 'row2', 'cf:b', 'value2'
+put 'bucks', 'row3', 'cf:c', 'value3'

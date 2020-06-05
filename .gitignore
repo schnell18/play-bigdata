@@ -1,0 +1,11 @@
+.idea/
+.iml
+.iws
+.ipr
+.swp
+.swo
+.pyc
+.pyo
+target/
+**/output/
+**/*.rs.bk
