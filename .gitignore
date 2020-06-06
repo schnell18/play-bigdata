@@ -6,6 +6,9 @@
 .swo
 .pyc
 .pyo
+.project
+.classpath
+.settings/
 target/
 **/output/
 **/*.rs.bk
