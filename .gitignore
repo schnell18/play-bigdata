@@ -9,6 +9,8 @@
 .project
 .classpath
 .settings/
+**/.vagrant/
+*.zip
 target/
 **/output/
 **/*.rs.bk

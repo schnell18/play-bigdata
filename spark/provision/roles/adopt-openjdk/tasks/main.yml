@@ -1,0 +1,29 @@
+---
+# tasks file for adopt-openjdk
+
+- name: Add an apt signing key for AdoptOpenJDK
+  apt_key:
+    data: "{{ lookup('file', 'adoptopenjdk-apt-key.asc') }}"
+    state: present
+
+- name: Adding apt repository for AdoptOpenJDK
+  apt_repository:
+    repo: deb {{ adoptopenjdk_jfrog_apt_mirror }} buster main
+    state: present
+    filename: adoptopenjdk-jfrog
+
+- name: Install AdoptOpenJDK binaries
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - adoptopenjdk-8-hotspot
+
+- name: Setup JAVA_HOME
+  lineinfile:
+    path: /etc/profile.d/java.sh
+    state: present
+    create: yes
+    line: export JAVA_HOME=/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64

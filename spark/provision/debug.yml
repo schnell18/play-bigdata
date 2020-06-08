@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  become: false
+
+  tasks:
+    - name: debug
+      debug:
+        msg: "{{ hostvars[groups['master'][0]]['ansible_eth1']['ipv4']['address'] }}"
+    - name: debug 2
+      debug:
+        msg: "{{ ansible_eth1.ipv4.address }}"

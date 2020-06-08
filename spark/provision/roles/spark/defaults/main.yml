@@ -1,0 +1,5 @@
+---
+# Fast Apache Mirror
+apache_mirror: mirrors.tuna.tsinghua.edu.cn/apache/
+spark_version: 2.4.7
+hadoop_version: 2.7

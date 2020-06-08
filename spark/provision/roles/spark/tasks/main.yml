@@ -1,0 +1,75 @@
+---
+# tasks file for spark
+
+- name: Check if spark is installed
+  stat:
+    path: /usr/local/spark
+  register: astat
+
+- name: Skip download and install
+  debug:
+    msg: Spark already installed, skipping download and installation
+  when: astat.stat.exists == True
+
+- name: Download spark
+  get_url:
+    url: https://{{ apache_mirror }}/spark/spark-{{ spark_version }}/spark-{{ spark_version }}-bin-hadoop{{ hadoop_version }}.tgz
+    dest: /tmp/
+  when: astat.stat.exists == False
+    #checksum: sha512:https://archive.apache.org/dist/spark/spark-{{ spark_version}}/spark-{{ spark_version}}-bin-hadoop{{ hadoop_version}}.tgz.sha512
+
+- name: Install spark
+  unarchive:
+    remote_src: True
+    src: /tmp/spark-{{ spark_version }}-bin-hadoop{{ hadoop_version }}.tgz
+    dest: /usr/local
+    creates: /usr/local/spark/.ansible-installed
+
+- name: Create symbol link
+  file:
+    src: /usr/local/spark-{{ spark_version }}-bin-hadoop{{ hadoop_version }}
+    dest: /usr/local/spark
+    state: link
+
+- name: Create spark temp directory
+  file:
+    path: /var/lib/spark/tmp
+    group: devel
+    mode: 0770
+    state: directory
+
+- name: Create spark log directory
+  file:
+    path: /var/lib/spark/logs
+    group: devel
+    mode: 0770
+    state: directory
+
+- name: Configure spark slaves
+  template:
+    src: slaves.j2
+    dest: /usr/local/spark/conf/slaves
+
+- name: Configure spark defaults
+  template:
+    src: spark-defaults.conf.j2
+    dest: /usr/local/spark/conf/spark-defaults.conf
+
+- name: Configure spark environment variables
+  template:
+    src: spark-env.sh.j2
+    dest: /usr/local/spark/conf/spark-env.sh
+
+- name: Setup SPARK_HOME
+  lineinfile:
+    path: /etc/profile.d/spark.sh
+    state: present
+    create: yes
+    line: export SPARK_HOME=/usr/local/spark
+
+- name: Setup PATH
+  lineinfile:
+    path: /etc/profile.d/spark.sh
+    state: present
+    create: yes
+    line: export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
