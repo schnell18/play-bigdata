@@ -10,13 +10,13 @@
   apt_repository:
     repo: deb {{ adoptopenjdk_jfrog_apt_mirror }} buster main
     state: present
+    update_cache: yes
     filename: adoptopenjdk-jfrog
 
 - name: Install AdoptOpenJDK binaries
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
   vars:
     packages:
       - adoptopenjdk-8-hotspot

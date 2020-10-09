@@ -1,8 +1,15 @@
 # Introduction
 
 This file documents spark setup on debian 10.  For your convenience, we
-provides a Vagrantfile to create two node spark cluster. The cluster is
+provides a Vagrantfile to create a multi-node spark cluster. The cluster is
 based on debian 10.6 w/ Adopt-OpenJDK 8 installed.
+The installation and setup steps are automated by running ansible inside
+Vagrant. The ansible inventory is managed by Vagrant. If you want to run
+ansible manually, you using the generated inventory file
+`.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory` as
+follows:
+
+    ansible-playbook -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory provision/playbook.yml
 
 ## Pre-requisite
 
@@ -19,7 +26,7 @@ You also need the vagrant box [schnell18/buster64][9].
 Alternatively, you can build the box yourself by following
 instruction from [this github repository][10].
 
-Optinally, you may install following software to ease spark development
+Optinally, you may install following softwares to ease spark development
 under command line:
 - [tmux][6]
 - [vim][7] or [neovim][8]

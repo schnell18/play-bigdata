@@ -23,7 +23,7 @@
     remote_src: True
     src: /tmp/spark-{{ spark_version }}-bin-hadoop{{ hadoop_version }}.tgz
     dest: /usr/local
-    creates: /usr/local/spark/.ansible-installed
+  when: astat.stat.exists == False
 
 - name: Create symbol link
   file:
