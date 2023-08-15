@@ -1,4 +1,4 @@
-package org.tinker.big.data.unstructured.document;
+package org.tinker.big.data.unstructured.document.main;
 
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-public class AutoParserTest {
+public class DocumentExtractor {
 
     public static void main(String[] args) {
         String docFile = "report.pdf";
