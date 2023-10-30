@@ -10,7 +10,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <tika.version>2.8.0</tika.version>
-        <elasticsearch.version>7.17.12</elasticsearch.version>
+        <elasticsearch.version>7.17.13</elasticsearch.version>
         <jackson.version>2.12.7.1</jackson.version>
     </properties>
     <dependencies>
